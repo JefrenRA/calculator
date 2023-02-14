@@ -53,3 +53,4 @@ packages/
 /calculator/target/classes/META-INF/MANIFEST.MF
 /calculator/target/classes/META-INF/maven/org.tap/calculator/pom.properties
 /calculator/target/classes/META-INF/maven/org.tap/calculator/pom.xml
+/calculator/target/classes/com/tap/calculator/Main.class
