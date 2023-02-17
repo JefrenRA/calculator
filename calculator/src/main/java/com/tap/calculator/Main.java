@@ -4,9 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Main {
-	SolveExpression ans = new SolveExpression();
-	DeclareObjects decObj = new DeclareObjects();
-	String exp = decObj.lblExp.getText();
+	private SolveExpression ans = new SolveExpression();
+	private DeclareObjects decObj = new DeclareObjects();
+	private String exp = decObj.getLblExp();
 	
 	public Main() {
 		decObj.setUpObjects();
@@ -20,7 +20,8 @@ public class Main {
 	public void action(){
 		decObj.btnClearAll.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				decObj.lblExp.setText("0");
+				decObj.setLblExp("");
+				exp = "";
 			}
 		});
 		
@@ -28,7 +29,7 @@ public class Main {
 			public void actionPerformed(ActionEvent arg0) {
 				ans.solve(exp);
 				exp = ans.result;
-				decObj.lblExp.setText(exp);
+				decObj.setLblExp(exp);
 			}
 		});
 		
@@ -36,46 +37,58 @@ public class Main {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					int expLen = exp.length();
-					exp = exp.substring(0, expLen-1);
+					if (!(expLen == 0)) {
+						exp = exp.substring(0, expLen-1);
+					}
 				}catch(Exception e) {
-					exp ="0";
+					e.printStackTrace();
 				}
-				decObj.lblExp.setText(exp);
+				decObj.setLblExp(exp);
 			}
 		});
 		
 		decObj.btnDot.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				digit(".");
+				if(exp.contentEquals("")) {
+					digit("0.");
+				}
+				else if(exp.endsWith("+") || exp.endsWith("-") || exp.endsWith("*") || exp.endsWith("/")) {
+					digit("0.");
+				}
+				else if((!(exp.contains(".")))){
+					digit(".");
+				}
 			}
 		});
 			
 		decObj.btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				arithmethicOperation("+");
+				testInput("+");
 			}
 		});
 		
 		decObj.btnSub.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				arithmethicOperation("-");
+				testInput("-");
 			}
 		});
 		
 		decObj.btnMul.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				arithmethicOperation("*");
+				testInput("*");
 			}
 		});
 		
 		decObj.btnDiv.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				arithmethicOperation("/");
+				testInput("/");
 			}
 		});
 		decObj.btnDigit[0].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				digit("0");
+				if(!(exp.contentEquals("0"))) {
+					digit("0");
+				}
 			}
 		});
 		
@@ -135,29 +148,29 @@ public class Main {
 
 	}
 	private void digit(String d) {
-		if (exp == "0"){
+		if (exp.contentEquals("0")){
 			exp = d;	
 		}
 		else if (exp == ans.result) {
 			exp = d;
 		}
 		else {
-			exp = decObj.lblExp.getText() + d;
+			exp = decObj.getLblExp() + d;
 		}
-		decObj.lblExp.setText(exp);
+		decObj.setLblExp(exp);
 	}
 	
 	private void arithmethicOperation(String operation){
 		try {
 			int expLen = exp.length();
-			if (exp!= "") {
+			
 				if (exp.contains("+") || exp.contains("-") || exp.contains("*") || exp.contains("/")) {
 					if(exp.endsWith("+") || exp.endsWith("-") || exp.endsWith("*") || exp.endsWith("/")) {			
 						exp = exp.substring(0, expLen-1) + operation;
 					}
 					else if (exp.startsWith("-")) {
 						exp = exp + operation;
-						decObj.lblExp.setText(exp);
+						decObj.setLblExp(exp);
 						ans.solve(exp);
 					}
 					else {
@@ -168,11 +181,25 @@ public class Main {
 				else {
 					exp = exp + operation;
 				}
-				decObj.lblExp.setText(exp);
-			}
+				decObj.setLblExp(exp);
+				
 		}
 		catch(Exception e){
-			
+			e.printStackTrace();
+		}
+	}
+	
+	public void testInput(String op) {
+		if (!(exp.contentEquals(""))){
+			if (!(exp.contentEquals("."))) {
+				if (!(exp.endsWith("."))) {
+					arithmethicOperation(op);
+				}
+				else {
+					int expLen = exp.length();
+					exp = exp.substring(0, expLen-1);
+				}
+			}
 		}
 	}
 }

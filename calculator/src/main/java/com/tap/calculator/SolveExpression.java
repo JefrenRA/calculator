@@ -1,9 +1,9 @@
 package com.tap.calculator;
 
 public class SolveExpression {
-	ArithmeticOperations arithOp = new ArithmeticOperations();
-	String[] val;
-	String result;
+	private ArithmeticOperations arithOp = new ArithmeticOperations();
+	private String[] val;
+	protected String result;
 	
 	public void solve(String expression) {
 		try {

@@ -6,8 +6,8 @@ public class ArithmeticOperations implements Operations {
 		double addVal1 = Double.valueOf(addend);
 		double addVal2 = Double.valueOf(augend);
 		double sum = addVal1 + addVal2;
-
-		return String.valueOf(sum);
+		
+		return String.format("%1$,.2f", sum);
 	}
 
 	public String subt(String minuend, String subtrahend) {
@@ -15,7 +15,7 @@ public class ArithmeticOperations implements Operations {
 		double subVal2 = Double.valueOf(subtrahend);
 		double difference = subVal1 - subVal2;
 
-		return String.valueOf(difference);
+		return String.format("%1$,.2f",difference);
 	}
 
 	public String mul(String multiplier, String multiplicand) {
@@ -23,7 +23,7 @@ public class ArithmeticOperations implements Operations {
 		double mulVal2 = Double.valueOf(multiplicand);
 		double product = mulVal1 * mulVal2;
 
-		return String.valueOf(product);
+		return String.format("%1$,.2f",product);
 	}
 
 	public String div(String dividend, String divisor) {
@@ -31,11 +31,11 @@ public class ArithmeticOperations implements Operations {
 		double divVal2 = Double.valueOf(divisor);
 		double quotient = divVal1 / divVal2;
 
-		return String.valueOf(quotient);
+		return String.format("%1$,.2f", quotient);
 	}
 
 	public String finalizeAns(String ans) {
-		if (ans.endsWith(".0")) {
+		if (ans.endsWith(".00")) {
 			int deci = ans.indexOf(".");
 			ans = ans.substring(0,deci);
 		}
