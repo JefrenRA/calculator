@@ -26,6 +26,10 @@ public class DeclareObjects {
 	
 	final Font font = new Font("Century Gothic", Font.BOLD, 18);
 	
+	public DeclareObjects() {
+		this.setUpObjects();
+	}
+	
 	private void btnSet() {
 		getBtnFunction()[0] = btnClearAll;
 		getBtnFunction()[1] = btnBckSpc;
@@ -57,25 +61,25 @@ public class DeclareObjects {
 	}
 
 	private void objectBounds() {
-		btnClearAll.setBounds(3, 80, 121, 60);
-		btnBckSpc.setBounds(125, 80, 60, 60);
-		btnDot.setBounds(186, 80, 60, 60);
-		getBtnDigit()[7].setBounds(3, 141, 60, 60);
-		getBtnDigit()[4].setBounds(3, 202, 60, 60);
-		getBtnDigit()[1].setBounds(3, 263, 60, 60);
-		getBtnDigit()[8].setBounds(64, 141, 60, 60);
-		getBtnDigit()[5].setBounds(64, 202, 60, 60);
-		getBtnDigit()[2].setBounds(64, 263, 60, 60);
-		getBtnDigit()[9].setBounds(125, 141, 60, 60);
-		getBtnDigit()[6].setBounds(125, 202, 60, 60);
-		getBtnDigit()[3].setBounds(125, 263, 60, 60);
-		getBtnDigit()[0].setBounds(3, 324, 60, 60);
-		btnDiv.setBounds(186, 141, 60, 60);
-		btnMul.setBounds(186, 202, 60, 60);
-		btnSub.setBounds(186, 263, 60, 60);
-		btnAdd.setBounds(186, 324, 60, 60);
-		btnEqual.setBounds(64, 324, 121, 60);
-		lblExp.setBounds(3, 0, 243, 80);
+		btnClearAll.setBounds(6, 86, 121, 60);
+		btnBckSpc.setBounds(128, 86, 60, 60);
+		btnDot.setBounds(189, 86, 60, 60);
+		getBtnDigit()[7].setBounds(6, 147, 60, 60);
+		getBtnDigit()[4].setBounds(6, 208, 60, 60);
+		getBtnDigit()[1].setBounds(6, 269, 60, 60);
+		getBtnDigit()[8].setBounds(67, 147, 60, 60);
+		getBtnDigit()[5].setBounds(67, 208, 60, 60);
+		getBtnDigit()[2].setBounds(67, 269, 60, 60);
+		getBtnDigit()[9].setBounds(128, 147, 60, 60);
+		getBtnDigit()[6].setBounds(128, 208, 60, 60);
+		getBtnDigit()[3].setBounds(128, 269, 60, 60);
+		getBtnDigit()[0].setBounds(6, 330, 60, 60);
+		btnDiv.setBounds(189, 147, 60, 60);
+		btnMul.setBounds(189, 208, 60, 60);
+		btnSub.setBounds(189, 269, 60, 60);
+		btnAdd.setBounds(189, 330, 60, 60);
+		btnEqual.setBounds(67, 330, 121, 60);
+		lblExp.setBounds(6, 3, 243, 80);
 	}
 
 	public void setUpObjects() {
@@ -85,9 +89,10 @@ public class DeclareObjects {
 		lblExp.setForeground(Color.BLACK);
 		lblExp.setFont(new Font("Century Gothic", Font.BOLD, 30));
 		lblExp.setBorder(BorderFactory.createLineBorder(new Color(222,206,190), 2));
-
+		
+		calFrame.setSize(260, 425);
+		calFrame.setResizable(false);
 		calFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		calFrame.setSize(265, 425);
 		calFrame.setLayout(null);
 		calFrame.setLocationRelativeTo(null);
 		calFrame.add(lblExp);
@@ -104,7 +109,7 @@ public class DeclareObjects {
 			getBtnFunction()[j].setFont(font);
 			calFrame.add(getBtnFunction()[j]);
 		}
-
+		
 		calFrame.setVisible(true);
 	}
 	

@@ -13,7 +13,6 @@ public class ButtonClick {
 	private SolveExpression ans = new SolveExpression();
 	
 	public void action(){
-		decObj.setUpObjects();
 		decObj.getBtnFunction()[0].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				decObj.setLblExp("");
@@ -37,25 +36,25 @@ public class ButtonClick {
 		});
 		decObj.getBtnFunction()[2].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				testInput("+");
+				validateInput("+");
 			}
 		});
 		
 		decObj.getBtnFunction()[3].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				testInput("-");
+				validateInput("-");
 			}
 		});
 		
 		decObj.getBtnFunction()[4].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				testInput("*");
+				validateInput("*");
 			}
 		});
 		
 		decObj.getBtnFunction()[5].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				testInput("/");
+				validateInput("/");
 			}
 		});
 		decObj.getBtnDigit()[0].addActionListener(new ActionListener() {
@@ -163,7 +162,7 @@ public class ButtonClick {
 		}
 	}
 	
-	public void testInput(String op) {
+	public void validateInput(String op) {
 		if (exp.startsWith("=")) {
 			exp = exp.substring(1);
 		}
