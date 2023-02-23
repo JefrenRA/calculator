@@ -1,58 +1,68 @@
-package com.tap.calculator;
+package com.tap.calculator.util;
+
+import com.tap.calculator.ops.impl.ArithmeticOperations;
 
 public class SolveExpression {
 	private ArithmeticOperations arithOp = new ArithmeticOperations();
 	private String[] val;
-	protected String result;
+	private String result;
 	
 	public void solve(String expression) {
 		try {
 			if (expression.contains("-")) {
 				if (!(expression.startsWith("-"))) {
 					val = expression.split("\\-");
-					result = arithOp.subt(val[0], val[1]);
+					setResult(arithOp.subt(val[0], val[1]));
 				}
 				else {
 					if(expression.contains("+")) {
 						val = expression.substring(1).split("\\+");
-						result = arithOp.subt(val[1], val[0]);
+						setResult(arithOp.subt(val[1], val[0]));
 					}
 					else if (expression.contains("*")) {
 						val = expression.substring(1).split("\\*");
-						result = "-" + arithOp.mul(val[0], val[1]);
+						setResult("-" + arithOp.mul(val[0], val[1]));
 					}
 					else if (expression.contains("/")) {
 						val = expression.substring(1).split("\\/");
-						result = "-" + arithOp.div(val[0], val[1]);
+						setResult("-" + arithOp.div(val[0], val[1]));
 					}
 					else {
 						val = expression.substring(1).split("\\-");
-						result = "-" + arithOp.add(val[1], val[0]);
+						setResult("-" + arithOp.add(val[1], val[0]));
 					}
 				}
 			}
 			else if(expression.contains("+")) {
 				val = expression.split("\\+");
-				result = arithOp.add(val[0], val[1]);
+				setResult(arithOp.add(val[0], val[1]));
 			}
 			else if (expression.contains("*")) {
 				val = expression.split("\\*");
-				result = arithOp.mul(val[0], val[1]);
+				setResult(arithOp.mul(val[0], val[1]));
 			}
 			else if (expression.contains("/")) {
 				val = expression.split("\\/");
-				result = arithOp.div(val[0], val[1]);
+				setResult(arithOp.div(val[0], val[1]));
 			}
 			else {
-				result=expression;
+				setResult(expression);
 			}
 			
-			result = arithOp.finalizeAns(result);
+			setResult(arithOp.finalizeAns(getResult()));
 		}
 		catch(Exception e) {
-			result = "0";
+			setResult("0");
 		}
 		
+	}
+
+	public String getResult() {
+		return result;
+	}
+
+	public void setResult(String result) {
+		this.result = result;
 	}
 	
 }

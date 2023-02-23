@@ -1,4 +1,4 @@
-package com.tap.calculator;
+package com.tap.calculator.ops;
 
 public interface Operations {
 	public String add(String addend, String augend);

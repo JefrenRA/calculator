@@ -1,4 +1,6 @@
-package com.tap.calculator;
+package com.tap.calculator.ops.impl;
+
+import com.tap.calculator.ops.Operations;
 
 public class ArithmeticOperations implements Operations {
 
@@ -40,7 +42,7 @@ public class ArithmeticOperations implements Operations {
 			ans = ans.substring(0,deci);
 		}
 		
-		return ans;
+		return "="+ans;
 	}
 
 }

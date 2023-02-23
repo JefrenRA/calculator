@@ -1,4 +1,4 @@
-package com.tap.calculator;
+package com.tap.calculator.beans;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -9,38 +9,39 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
+
 public class DeclareObjects {
 	private JFrame calFrame = new JFrame("Simple Calculator");
 	private JLabel lblExp = new JLabel();
-	protected JButton[] btnDigit = new JButton[10];
-	protected JButton[] btnFunction = new JButton[8];
-	final protected JButton btnClearAll = new JButton("CLEAR");
-	final protected JButton btnBckSpc = new JButton("<-");
-	final protected JButton btnAdd = new JButton("+");
-	final protected JButton btnSub = new JButton("-");
-	final protected JButton btnMul = new JButton("*");
-	final protected JButton btnDiv = new JButton("/");
-	final protected JButton btnEqual = new JButton("=");
-	final protected JButton btnDot = new JButton(".");
+	private JButton[] btnDigit = new JButton[10];
+	private JButton[] btnFunction = new JButton[8];
+	final private JButton btnClearAll = new JButton("CLEAR");
+	final private JButton btnBckSpc = new JButton("<-");
+	final private JButton btnAdd = new JButton("+");
+	final private JButton btnSub = new JButton("-");
+	final private JButton btnMul = new JButton("*");
+	final private JButton btnDiv = new JButton("/");
+	final private JButton btnEqual = new JButton("=");
+	final private JButton btnDot = new JButton(".");
 	
 	final Font font = new Font("Century Gothic", Font.BOLD, 18);
-
+	
 	private void btnSet() {
-		btnFunction[0] = btnClearAll;
-		btnFunction[1] = btnBckSpc;
-		btnFunction[2] = btnAdd;
-		btnFunction[3] = btnSub;
-		btnFunction[4] = btnMul;
-		btnFunction[5] = btnDiv;
-		btnFunction[6] = btnEqual;
-		btnFunction[7] = btnDot;
+		getBtnFunction()[0] = btnClearAll;
+		getBtnFunction()[1] = btnBckSpc;
+		getBtnFunction()[2] = btnAdd;
+		getBtnFunction()[3] = btnSub;
+		getBtnFunction()[4] = btnMul;
+		getBtnFunction()[5] = btnDiv;
+		getBtnFunction()[6] = btnEqual;
+		getBtnFunction()[7] = btnDot;
 		
 		int indexFunc= 0;
 		while (indexFunc < 8) {
-			btnFunction[indexFunc].setFocusPainted(false);
-			btnFunction[indexFunc].setBorderPainted(false);
-			btnFunction[indexFunc].setBackground(new Color(222,206,190));
-			btnFunction[indexFunc].setForeground(Color.BLACK);
+			getBtnFunction()[indexFunc].setFocusPainted(false);
+			getBtnFunction()[indexFunc].setBorderPainted(false);
+			getBtnFunction()[indexFunc].setBackground(new Color(222,206,190));
+			getBtnFunction()[indexFunc].setForeground(Color.BLACK);
 			indexFunc++;
 		}
 
@@ -59,16 +60,16 @@ public class DeclareObjects {
 		btnClearAll.setBounds(3, 80, 121, 60);
 		btnBckSpc.setBounds(125, 80, 60, 60);
 		btnDot.setBounds(186, 80, 60, 60);
-		btnDigit[7].setBounds(3, 141, 60, 60);
-		btnDigit[4].setBounds(3, 202, 60, 60);
-		btnDigit[1].setBounds(3, 263, 60, 60);
-		btnDigit[8].setBounds(64, 141, 60, 60);
-		btnDigit[5].setBounds(64, 202, 60, 60);
-		btnDigit[2].setBounds(64, 263, 60, 60);
-		btnDigit[9].setBounds(125, 141, 60, 60);
-		btnDigit[6].setBounds(125, 202, 60, 60);
-		btnDigit[3].setBounds(125, 263, 60, 60);
-		btnDigit[0].setBounds(3, 324, 60, 60);
+		getBtnDigit()[7].setBounds(3, 141, 60, 60);
+		getBtnDigit()[4].setBounds(3, 202, 60, 60);
+		getBtnDigit()[1].setBounds(3, 263, 60, 60);
+		getBtnDigit()[8].setBounds(64, 141, 60, 60);
+		getBtnDigit()[5].setBounds(64, 202, 60, 60);
+		getBtnDigit()[2].setBounds(64, 263, 60, 60);
+		getBtnDigit()[9].setBounds(125, 141, 60, 60);
+		getBtnDigit()[6].setBounds(125, 202, 60, 60);
+		getBtnDigit()[3].setBounds(125, 263, 60, 60);
+		getBtnDigit()[0].setBounds(3, 324, 60, 60);
 		btnDiv.setBounds(186, 141, 60, 60);
 		btnMul.setBounds(186, 202, 60, 60);
 		btnSub.setBounds(186, 263, 60, 60);
@@ -95,13 +96,13 @@ public class DeclareObjects {
 		objectBounds();
 
 		for (int i = 0; i < 10; i++) {
-			btnDigit[i].setFont(font);
-			calFrame.add(btnDigit[i]);
+			getBtnDigit()[i].setFont(font);
+			calFrame.add(getBtnDigit()[i]);
 		}
 
 		for (int j = 0; j < 8; j++) {
-			btnFunction[j].setFont(font);
-			calFrame.add(btnFunction[j]);
+			getBtnFunction()[j].setFont(font);
+			calFrame.add(getBtnFunction()[j]);
 		}
 
 		calFrame.setVisible(true);
@@ -114,5 +115,21 @@ public class DeclareObjects {
 
 	public void setLblExp(String strExp) {
 		this.lblExp.setText(strExp);
+	}
+
+	public JButton[] getBtnDigit() {
+		return btnDigit;
+	}
+
+	public void setBtnDigit(JButton[] btnDigit) {
+		this.btnDigit = btnDigit;
+	}
+
+	public JButton[] getBtnFunction() {
+		return btnFunction;
+	}
+
+	public void setBtnFunction(JButton[] btnFunction) {
+		this.btnFunction = btnFunction;
 	}
 }
