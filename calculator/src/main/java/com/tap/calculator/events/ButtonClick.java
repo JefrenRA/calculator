@@ -5,12 +5,16 @@ import java.awt.event.ActionListener;
 
 
 import com.tap.calculator.beans.DeclareObjects;
-import com.tap.calculator.util.SolveExpression;;
+import com.tap.calculator.gateway.util.SolveExpression;;
 
 public class ButtonClick {
 	private DeclareObjects decObj = new DeclareObjects();
 	private String exp = decObj.getLblExp();
 	private SolveExpression ans = new SolveExpression();
+	
+	public ButtonClick() {
+		this.action();
+	}
 	
 	public void action(){
 		decObj.getBtnFunction()[0].addActionListener(new ActionListener() {
@@ -206,10 +210,18 @@ public class ButtonClick {
 	
 	public void equal() {
 		if (!(exp.isEmpty())) {
-			if (!(exp.contains("="))){
-				ans.solve(exp);
-				exp = ans.getResult();
-				decObj.setLblExp(exp);
+			if (exp.contains("+") || exp.contains("-") || exp.contains("*") || exp.contains("/")) {
+				if (!(exp.endsWith("+") || exp.endsWith("-") || exp.endsWith("*") || exp.endsWith("/"))) {
+					if (!(exp.contains("="))){
+						try {
+							ans.solve(exp);
+							exp = ans.getResult();
+							decObj.setLblExp(exp);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				}
 			}
 		}
 	}
