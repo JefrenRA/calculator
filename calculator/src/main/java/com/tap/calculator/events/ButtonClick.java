@@ -13,10 +13,11 @@ public class ButtonClick {
 	private SolveExpression ans = new SolveExpression();
 	
 	public ButtonClick() {
-		this.action();
+		this.doButtonAction();
 	}
 	
-	public void action(){
+	//method for button action performed, click.
+	public void doButtonAction(){
 		decObj.getBtnFunction()[0].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				decObj.setLblExp("");
@@ -25,17 +26,17 @@ public class ButtonClick {
 		});
 		decObj.getBtnFunction()[6].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				equal();
+				equateExpression();
 			}
 		});
 		decObj.getBtnFunction()[1].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				bckSpc();
+				doBckSpc();
 			}
 		});
 		decObj.getBtnFunction()[7].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				dot();
+				filterDot();
 			}
 		});
 		decObj.getBtnFunction()[2].addActionListener(new ActionListener() {
@@ -64,67 +65,68 @@ public class ButtonClick {
 		decObj.getBtnDigit()[0].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(!(exp.contentEquals("0"))) {
-					digit("0");
+					setDigit("0");
 				}
 			}
 		});
 		
 		decObj.getBtnDigit()[1].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				digit("1");
+				setDigit("1");
 			}
 		});
 		
 		decObj.getBtnDigit()[2].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				digit("2");
+				setDigit("2");
 			}
 		});
 		
 		decObj.getBtnDigit()[3].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				digit("3");
+				setDigit("3");
 			}
 		});
 		
 		decObj.getBtnDigit()[4].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				digit("4");
+				setDigit("4");
 			}
 		});
 		
 		decObj.getBtnDigit()[5].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				digit("5");
+				setDigit("5");
 			}
 		});
 		
 		decObj.getBtnDigit()[6].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				digit("6");
+				setDigit("6");
 			}
 		});
 		
 		decObj.getBtnDigit()[7].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				digit("7");
+				setDigit("7");
 			}
 		});
 		
 		decObj.getBtnDigit()[8].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				digit("8");
+				setDigit("8");
 			}
 		});
 		
 		decObj.getBtnDigit()[9].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				digit("9");
+				setDigit("9");
 			}
 		});
 
 	}
-	public void digit(String d) {
+	
+	public void setDigit(String d) {
 		if (exp.contentEquals("0")){
 			exp = d;	
 		}
@@ -137,7 +139,8 @@ public class ButtonClick {
 		decObj.setLblExp(exp);
 	}
 	
-	public void arithmethicOperation(String operation){
+	//method to filter inputs in assigning arithmetic operation
+	public void setArithmethicOperation(String operation){
 		try {
 			int expLen = exp.length();
 			
@@ -166,6 +169,7 @@ public class ButtonClick {
 		}
 	}
 	
+	//method to filter and validate null and dot inputs
 	public void validateInput(String op) {
 		if (exp.startsWith("=")) {
 			exp = exp.substring(1);
@@ -174,7 +178,7 @@ public class ButtonClick {
 		if (!(exp.contentEquals(""))){
 			if (!(exp.contentEquals("."))) {
 				if (!(exp.endsWith("."))) {
-					arithmethicOperation(op);
+					setArithmethicOperation(op);
 				}
 				else {
 					int expLen = exp.length();
@@ -184,19 +188,21 @@ public class ButtonClick {
 		}
 	}
 	
-	public void dot() {
+	//method for filtering dot(.) inputs
+	public void filterDot() {
 		if(exp.contentEquals("")) {
-			digit("0.");
+			setDigit("0.");
 		}
 		else if(exp.endsWith("+") || exp.endsWith("-") || exp.endsWith("*") || exp.endsWith("/")) {
-			digit("0.");
+			setDigit("0.");
 		}
 		else if((!(exp.contains(".")))){
-			digit(".");
+			setDigit(".");
 		}
 	}
 	
-	public void bckSpc() {
+	//method to ignore backspace action once the length of the expression is 0
+	public void doBckSpc() {
 		try {
 			int expLen = exp.length();
 			if (!(expLen == 0)) {
@@ -208,7 +214,8 @@ public class ButtonClick {
 		decObj.setLblExp(exp);
 	}
 	
-	public void equal() {
+	//method to get the result of the expression
+	public void equateExpression() {
 		if (!(exp.isEmpty())) {
 			if (exp.contains("+") || exp.contains("-") || exp.contains("*") || exp.contains("/")) {
 				if (!(exp.endsWith("+") || exp.endsWith("-") || exp.endsWith("*") || exp.endsWith("/"))) {

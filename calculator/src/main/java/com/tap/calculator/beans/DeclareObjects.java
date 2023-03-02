@@ -11,6 +11,7 @@ import javax.swing.SwingConstants;
 
 
 public class DeclareObjects {
+	//Initialization of Objects
 	private JFrame calFrame = new JFrame("Simple Calculator");
 	private JLabel lblExp = new JLabel();
 	private JButton[] btnDigit = new JButton[10];
@@ -30,7 +31,7 @@ public class DeclareObjects {
 		this.setUpObjects();
 	}
 	
-	private void btnSet() {
+	private void setUpButton() {
 		getBtnFunction()[0] = btnClearAll;
 		getBtnFunction()[1] = btnBckSpc;
 		getBtnFunction()[2] = btnAdd;
@@ -60,7 +61,8 @@ public class DeclareObjects {
 		}
 	}
 
-	private void objectBounds() {
+	//setting size and position of the Objects
+	private void setObjectBounds() {
 		btnClearAll.setBounds(6, 86, 121, 60);
 		btnBckSpc.setBounds(128, 86, 60, 60);
 		btnDot.setBounds(189, 86, 60, 60);
@@ -81,7 +83,8 @@ public class DeclareObjects {
 		btnEqual.setBounds(67, 330, 121, 60);
 		lblExp.setBounds(6, 3, 243, 80);
 	}
-
+	
+	//setting object properties
 	public void setUpObjects() {
 		lblExp.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblExp.setOpaque(true);
@@ -97,8 +100,8 @@ public class DeclareObjects {
 		calFrame.setLocationRelativeTo(null);
 		calFrame.add(lblExp);
 
-		btnSet();
-		objectBounds();
+		setUpButton();
+		setObjectBounds();
 
 		for (int i = 0; i < 10; i++) {
 			getBtnDigit()[i].setFont(font);
