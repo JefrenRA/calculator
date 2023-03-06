@@ -13,9 +13,8 @@ import javax.swing.SwingConstants;
 
 import com.tap.calculator.gateway.ops.impl.ArithmeticOperations;
 
-
-public class CalculatorFrame implements ActionListener{
-	//Initialization of Objects
+public class CalculatorFrame implements ActionListener {
+	// Initialization of Objects
 	private ArithmeticOperations arithmeticOps = new ArithmeticOperations();
 	private JFrame calFrame = new JFrame("Simple Calculator");
 	private JLabel lblExp = new JLabel();
@@ -29,15 +28,15 @@ public class CalculatorFrame implements ActionListener{
 	final private JButton btnDiv = new JButton("/");
 	final private JButton btnEqual = new JButton("=");
 	final private JButton btnDot = new JButton(".");
-	
+
 	final Font font = new Font("Century Gothic", Font.BOLD, 18);
-	
-	//label expression getter
+
+	// label expression getter
 	public String getLblExp() {
 		return lblExp.getText();
 	}
-	
-	//label expression setter
+
+	// label expression setter
 	public void setLblExp(String strExp) {
 		this.lblExp.setText(strExp);
 	}
@@ -46,7 +45,7 @@ public class CalculatorFrame implements ActionListener{
 		setUpObjectProperties();
 		setUpButtonAction();
 	}
-	
+
 	private void setUpButton() {
 		btnFunction[0] = btnClearAll;
 		btnFunction[1] = btnBckSpc;
@@ -56,12 +55,12 @@ public class CalculatorFrame implements ActionListener{
 		btnFunction[5] = btnDiv;
 		btnFunction[6] = btnEqual;
 		btnFunction[7] = btnDot;
-		
-		int indexFunc= 0;
+
+		int indexFunc = 0;
 		while (indexFunc < 8) {
 			btnFunction[indexFunc].setFocusPainted(false);
 			btnFunction[indexFunc].setBorderPainted(false);
-			btnFunction[indexFunc].setBackground(new Color(222,206,190));
+			btnFunction[indexFunc].setBackground(new Color(222, 206, 190));
 			btnFunction[indexFunc].setForeground(Color.BLACK);
 			indexFunc++;
 		}
@@ -69,7 +68,7 @@ public class CalculatorFrame implements ActionListener{
 		int indexNum = 0;
 		while (indexNum < 10) {
 			btnDigit[indexNum] = new JButton(String.valueOf(indexNum));
-			btnDigit[indexNum].setBackground(new Color(199,185,171));
+			btnDigit[indexNum].setBackground(new Color(199, 185, 171));
 			btnDigit[indexNum].setForeground(Color.BLACK);
 			btnDigit[indexNum].setFocusPainted(false);
 			btnDigit[indexNum].setBorderPainted(false);
@@ -77,7 +76,7 @@ public class CalculatorFrame implements ActionListener{
 		}
 	}
 
-	//setting size and position of the Objects
+	// setting size and position of the Objects
 	private void setObjectBounds() {
 		btnClearAll.setBounds(6, 86, 121, 60);
 		btnBckSpc.setBounds(128, 86, 60, 60);
@@ -99,16 +98,16 @@ public class CalculatorFrame implements ActionListener{
 		btnEqual.setBounds(67, 330, 121, 60);
 		lblExp.setBounds(6, 3, 243, 80);
 	}
-	
-	//setting object properties
+
+	// setting object properties
 	public void setUpObjectProperties() {
 		lblExp.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblExp.setOpaque(true);
-		lblExp.setBackground(new Color(245,243,242));
+		lblExp.setBackground(new Color(245, 243, 242));
 		lblExp.setForeground(Color.BLACK);
 		lblExp.setFont(new Font("Century Gothic", Font.BOLD, 30));
-		lblExp.setBorder(BorderFactory.createLineBorder(new Color(222,206,190), 2));
-		
+		lblExp.setBorder(BorderFactory.createLineBorder(new Color(222, 206, 190), 2));
+
 		calFrame.setSize(260, 425);
 		calFrame.setResizable(false);
 		calFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -128,128 +127,153 @@ public class CalculatorFrame implements ActionListener{
 			btnFunction[j].setFont(font);
 			calFrame.add(btnFunction[j]);
 		}
-		
+
 		calFrame.setVisible(true);
 	}
-	
+
 	public void setDigit(String d) {
-		if (getLblExp().contentEquals("0")){
-			setLblExp(d);	
-		}
-		else if (getLblExp() == arithmeticOps.getResult()) {
+		if (getLblExp().contentEquals("0")) {
 			setLblExp(d);
-		}
-		else {
+		} else if (getLblExp() == arithmeticOps.getResult()) {
+			setLblExp(d);
+		} else {
 			setLblExp(getLblExp() + d);
 		}
 	}
 	
-	//method to filter inputs in assigning arithmetic operation
-	public void setArithmethicOperation(String operation){
+	public void setOperationIfEndsWith(int expLen) throws Exception {
+		if (!(getLblExp().endsWith("+") || getLblExp().endsWith("-")
+				|| getLblExp().endsWith("*") || getLblExp().endsWith("/"))) {
+			arithmeticOps.solveExpression(getLblExp());
+			setLblExp(getLblExp().substring(0, expLen - 1));
+		}
+	}
+
+	// method to filter inputs in assigning arithmetic operation
+	public void setArithmethicOperation(String operation) {
 		try {
 			if (getLblExp().startsWith("=")) {
 				setLblExp(getLblExp().substring(1));
 			}
-			
-			if (!(getLblExp().contentEquals(""))){
+
+			if (!(getLblExp().contentEquals(""))) {
 				if (!(getLblExp().contentEquals("."))) {
 					if (!(getLblExp().endsWith("."))) {
 						int expLen = getLblExp().length();
-						if (getLblExp().contains("+") || getLblExp().contains("-") || getLblExp().contains("*") || getLblExp().contains("/")) {
-							if(getLblExp().endsWith("+") || getLblExp().endsWith("-") || getLblExp().endsWith("*") || getLblExp().endsWith("/")) {
-								setLblExp(getLblExp().substring(0, expLen-1) + operation);
+						if (getLblExp().contains("+") || getLblExp().contains("-") || getLblExp().contains("*")
+								|| getLblExp().contains("/")) {
+							if (getLblExp().startsWith("-")) {
+								String exp = getLblExp().substring(1);
+								if (getLblExp().contains("+") || getLblExp().contains("*")
+										|| getLblExp().contains("/")) {
+									setOperationIfEndsWith(expLen);
+								}
+								else if (exp.contains("-")) {
+									setOperationIfEndsWith(expLen);
+								} 
+								setLblExp(arithmeticOps.getResult() + operation);
+							} else if (getLblExp().endsWith("+") || getLblExp().endsWith("-")
+									|| getLblExp().endsWith("*") || getLblExp().endsWith("/")) {
+								setLblExp(getLblExp().substring(0, expLen - 1) + operation);
 							}
-							else if(getLblExp().startsWith("-")) {
-								setLblExp(arithmeticOps.getResult()+operation);
-							}
+
 							else {
 								arithmeticOps.solveExpression(getLblExp());
-								setLblExp(arithmeticOps.getResult()+operation);
+								setLblExp(arithmeticOps.getResult() + operation);
 							}
+						} else {
+							setLblExp(getLblExp() + operation);
 						}
-						else {
-							setLblExp(getLblExp()+operation);
-						}
-					}
-					else {
+					} else {
 						int expLen = getLblExp().length();
-						setLblExp(getLblExp().substring(0, expLen-1));
-						
+						setLblExp(getLblExp().substring(0, expLen - 1));
+
 					}
 				}
 			}
-			
-		}
-		catch(Exception e){
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
-	//method for filtering dot(.) inputs
+
+	// method for filtering dot(.) inputs
 	public void filterDot() {
-		if(getLblExp().contentEquals("")) {
+		if (getLblExp().contentEquals("")) {
 			setDigit("0.");
-		}
-		else if(getLblExp().endsWith("+") || getLblExp().endsWith("-") || getLblExp().endsWith("*") || getLblExp().endsWith("/")) {
+		} else if (getLblExp().endsWith("+") || getLblExp().endsWith("-") || getLblExp().endsWith("*")
+				|| getLblExp().endsWith("/")) {
 			setDigit("0.");
-		}
-		else if((!(getLblExp().contains(".")))){
+		} else if ((!(getLblExp().contains(".")))) {
 			setDigit(".");
 		}
 	}
-	
-	//method to ignore backspace action once the length of the expression is 0
+
+	// method to ignore backspace action once the length of the expression is 0
 	public void doBckSpc() {
 		try {
 			int expLen = getLblExp().length();
 			if (!(expLen == 0)) {
-				setLblExp(getLblExp().substring(0, expLen-1));
+				setLblExp(getLblExp().substring(0, expLen - 1));
 			}
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
-	//method to get the result of the expression
+
+	// method to get the result of the expression
 	public void equateExpression() {
 		if (!(getLblExp().isEmpty())) {
-			if (getLblExp().contains("+") || getLblExp().contains("-") || getLblExp().contains("*") || getLblExp().contains("/")) {
-				if (!(getLblExp().contains("="))){
-					try {
-						arithmeticOps.solveExpression(getLblExp());
-						setLblExp(arithmeticOps.getResult());
-					} catch (Exception e) {
-						e.printStackTrace();
+			if (getLblExp().contains("+") || getLblExp().contains("-") || getLblExp().contains("*")
+					|| getLblExp().contains("/")) {
+				if (!(getLblExp().endsWith("+") || getLblExp().endsWith("-") || getLblExp().endsWith("*")
+						|| getLblExp().endsWith("/"))) {
+					if (!(getLblExp().contains("="))) {
+						try {
+							arithmeticOps.solveExpression(getLblExp());
+							setLblExp("=" + arithmeticOps.getResult());
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
 					}
 				}
 			}
 		}
 	}
-	
-	//set up action listener to buttons
-	public void setUpButtonAction(){
+
+	// set up action listener to buttons
+	public void setUpButtonAction() {
 		for (int i = 0; i < 10; i++) {
 			btnDigit[i].addActionListener(this);
 		}
-		
+
 		for (int i = 0; i < 8; i++) {
 			btnFunction[i].addActionListener(this);
 		}
 	}
-	
-	//button action perform when clicked
+
+	// button action perform when clicked
 	public void actionPerformed(ActionEvent btn) {
-		if (btn.getSource()== btnClearAll) setLblExp("");
-		if (btn.getSource()== btnEqual) equateExpression();
-		if (btn.getSource()== btnBckSpc) doBckSpc();
-		if (btn.getSource()== btnDot) filterDot();
-		if (btn.getSource()== btnAdd) setArithmethicOperation("+");
-		if (btn.getSource()== btnSub) setArithmethicOperation("-");
-		if (btn.getSource()== btnMul) setArithmethicOperation("*");
-		if (btn.getSource()== btnDiv) setArithmethicOperation("/");
-		
+		if (btn.getSource() == btnClearAll)
+			setLblExp("");
+		if (btn.getSource() == btnEqual)
+			equateExpression();
+		if (btn.getSource() == btnBckSpc)
+			doBckSpc();
+		if (btn.getSource() == btnDot)
+			filterDot();
+		if (btn.getSource() == btnAdd)
+			setArithmethicOperation("+");
+		if (btn.getSource() == btnSub)
+			setArithmethicOperation("-");
+		if (btn.getSource() == btnMul)
+			setArithmethicOperation("*");
+		if (btn.getSource() == btnDiv)
+			setArithmethicOperation("/");
+
 		for (int i = 0; i < 10; i++) {
-			if (btn.getSource()== btnDigit[i]) setDigit(String.valueOf(i));
+			if (btn.getSource() == btnDigit[i])
+				setDigit(String.valueOf(i));
 		}
 	}
 }
