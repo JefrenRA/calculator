@@ -44,3 +44,13 @@ packages/
 /.metadata/.plugins/org.eclipse.tm.terminal.view.ui/.executables/data.properties
 /.metadata/.plugins/org.eclipse.ui.workbench/workingsets.xml
 /.metadata/version.ini
+/.metadata/
+
+/calculator/.classpath
+/calculator/.project
+/calculator/.settings/org.eclipse.jdt.core.prefs
+/calculator/.settings/org.eclipse.m2e.core.prefs
+/calculator/target/classes/META-INF/MANIFEST.MF
+/calculator/target/classes/META-INF/maven/org.tap/calculator/pom.properties
+/calculator/target/classes/META-INF/maven/org.tap/calculator/pom.xml
+/calculator/target/classes/com/tap/calculator/Main.class
